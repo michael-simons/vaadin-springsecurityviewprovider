@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -44,14 +46,12 @@ public class SpringSecurityNavigator extends Navigator {
 	/**
 	 * View Provider, der Views aus dem Spring Application Context bezieht
 	 */
+	@Configurable
 	private class SpringViewProvider implements ViewProvider {		
 		private static final long serialVersionUID = -8555986824827085073L;
-		final ApplicationContext applicationContext;
-		final Map<String, Class<? extends View>> views = new HashMap<>();
-		
-		public SpringViewProvider(ApplicationContext applicationContext) {
-			this.applicationContext = applicationContext;
-		}
+		@Autowired
+		transient ApplicationContext applicationContext;
+		final Map<String, Class<? extends View>> views = new HashMap<>();		
 
 		@Override
 		public String getViewName(String viewAndParameters) {
@@ -87,7 +87,7 @@ public class SpringSecurityNavigator extends Navigator {
 		super(ui, display);
 
 		try {
-			final SpringViewProvider springViewProvider = new SpringViewProvider(applicationContext);		
+			final SpringViewProvider springViewProvider = new SpringViewProvider();		
 	
 			final MethodSecurityExpressionHandler securityExpressionHandler = applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
 			final Method getViewMethod = SpringViewProvider.class.getMethod("getView", String.class);
