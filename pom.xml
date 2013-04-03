@@ -18,6 +18,10 @@
 		</developer>		
 	</developers>
 	
+	<scm>		
+		<connection>scm:git:git://github.com/michael-simons/vaadin-springsecurityviewprovider.git</connection>
+	</scm>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	
