@@ -1,4 +1,4 @@
-package de.enerko.aaw2.app.vaadin;
+package org.vaadin.addons.springsecuritynavigator;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

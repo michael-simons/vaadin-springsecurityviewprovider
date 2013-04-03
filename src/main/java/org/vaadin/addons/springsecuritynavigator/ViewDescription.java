@@ -1,4 +1,4 @@
-package de.enerko.aaw2.app.vaadin;
+package org.vaadin.addons.springsecuritynavigator;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
