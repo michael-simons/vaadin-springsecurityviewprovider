@@ -3,3 +3,5 @@ target/
 .project
 .factorypath
 .classpath
+pom.xml.releaseBackup
+release.properties
