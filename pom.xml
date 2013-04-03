@@ -230,4 +230,8 @@
 	</dependencies>
 	<url>http://info.michael-simons.eu/2013/03/30/vaadin-spring-integrating-vaadin-with-spring-security/</url>
 	<description>Provides a custom ViewProvider which evaluates @ViewDescription's and instanciates Views accordingly if the current User, authenticated through Spring Security, has the necessary permissions to use them.</description>
+	<organization>
+		<name>ENERKO Informatik GmbH</name>
+		<url>http://www.enerko-informatik.de</url>
+	</organization>
 </project>
