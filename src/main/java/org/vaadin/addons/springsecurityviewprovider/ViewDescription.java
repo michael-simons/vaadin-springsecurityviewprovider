@@ -1,4 +1,4 @@
-package org.vaadin.addons.springsecuritynavigator;
+package org.vaadin.addons.springsecurityviewprovider;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 

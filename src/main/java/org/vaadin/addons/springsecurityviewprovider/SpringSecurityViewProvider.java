@@ -1,4 +1,4 @@
-package org.vaadin.addons.springsecuritynavigator;
+package org.vaadin.addons.springsecurityviewprovider;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
