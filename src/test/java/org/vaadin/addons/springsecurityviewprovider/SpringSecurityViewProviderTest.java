@@ -14,14 +14,15 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.vaadin.addons.springsecurityviewprovider.SpringSecurityViewProvider;
 import org.vaadin.addons.springsecurityviewprovider.views.CacheableTestView;
+import org.vaadin.addons.springsecurityviewprovider.views.RestrictedView1;
 import org.vaadin.addons.springsecurityviewprovider.views.UncacheableTestView;
 
 import com.vaadin.navigator.View;
@@ -46,30 +47,41 @@ public class SpringSecurityViewProviderTest {
 	public static class TestConfiguration {	
 	}
 
-	final static Authentication anonymousAuthentication = new AnonymousAuthenticationToken("anonymousUser", "anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
-	
+	final static Authentication anonymousUser = new AnonymousAuthenticationToken("anonymousUser", "anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+	final static Authentication testUser = new TestingAuthenticationToken("testUser", "testUser", "authenticatedUser");
+	final static Authentication superUser = new TestingAuthenticationToken("superUser", "superUser", AuthorityUtils.createAuthorityList("authenticatedUser", "superUser"));
+		
 	@Autowired
 	private ApplicationContext applicationContext;
 
 	@Test
 	public void shouldCacheCacheableViews() {		
-		final ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(anonymousAuthentication, true);
+		final ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(anonymousUser, true);
 		final View v1 = viewProvider.getView(CacheableTestView.VIEW_NAME);
 		final View v2 = viewProvider.getView(CacheableTestView.VIEW_NAME);		
-		Assert.assertEquals(v1, v2);
+		Assert.assertEquals(v1, v2);		
 	}
 
 	@Test
 	public void shouldNotCacheUncacheableViews() {
-		final ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(anonymousAuthentication, true);
+		final ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(anonymousUser, true);
 		final View v1 = viewProvider.getView(UncacheableTestView.VIEW_NAME);
 		final View v2 = viewProvider.getView(UncacheableTestView.VIEW_NAME);		
 		Assert.assertNotEquals(v1, v2);
 	}
 	
-	@Test
+	@Test	
 	public void shouldNotFailOnUnknownView() {
-		final ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(anonymousAuthentication, true);
+		final ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(anonymousUser, true);
 		viewProvider.getView("someUnknownView");
+	}
+		
+	@Test
+	public void restrictedViewsShouldNotBeInstantiated() {		
+		ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(anonymousUser, true);		
+		Assert.assertNull(viewProvider.getView(RestrictedView1.VIEW_NAME));
+		
+		viewProvider = SpringSecurityViewProvider.createViewProvider(testUser, true);		
+		Assert.assertNull(viewProvider.getView(RestrictedView1.VIEW_NAME));
 	}
 }
