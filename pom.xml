@@ -228,4 +228,6 @@
 			<scope>test</scope>
 		</dependency>				
 	</dependencies>
+	<url>http://info.michael-simons.eu/2013/03/30/vaadin-spring-integrating-vaadin-with-spring-security/</url>
+	<description>Provides a custom ViewProvider which evaluates @ViewDescription's and instanciates Views accordingly if the current User, authenticated through Spring Security, has the necessary permissions to use them.</description>
 </project>
