@@ -6,20 +6,18 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 /**
- * This view throws an exception if anybody tries to instantiate it
  * @author Michael J. Simons, 2013-04-03
  */
 @ViewDescription(
-		name=RestrictedView1.VIEW_NAME,		
+		name=RestrictedView2.VIEW_NAME,		
 		requiredPermissions="isAuthenticated() and hasRole('superUser')"
 )
-public class RestrictedView1 implements View {
+public class RestrictedView2 implements View {
 	private static final long serialVersionUID = 4600098199813036228L;
 	
-	public static final String VIEW_NAME = "/test/restrictedView1";
+	public static final String VIEW_NAME = "/test/restrictedView2";
 	
-	public RestrictedView1() {
-		throw new RuntimeException("I don't want to be instantiated.");
+	public RestrictedView2() {		
 	}
 	
 	@Override

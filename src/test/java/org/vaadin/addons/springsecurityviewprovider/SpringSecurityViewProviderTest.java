@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.vaadin.addons.springsecurityviewprovider.views.CacheableTestView;
 import org.vaadin.addons.springsecurityviewprovider.views.RestrictedView1;
+import org.vaadin.addons.springsecurityviewprovider.views.RestrictedView2;
 import org.vaadin.addons.springsecurityviewprovider.views.UncacheableTestView;
 
 import com.vaadin.navigator.View;
@@ -83,5 +84,11 @@ public class SpringSecurityViewProviderTest {
 		
 		viewProvider = SpringSecurityViewProvider.createViewProvider(testUser, true);		
 		Assert.assertNull(viewProvider.getView(RestrictedView1.VIEW_NAME));
+	}
+	
+	@Test
+	public void permissionsShouldBeEvaluated() {
+		ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(superUser, true);		
+		Assert.assertNotNull(viewProvider.getView(RestrictedView2.VIEW_NAME));
 	}
 }
