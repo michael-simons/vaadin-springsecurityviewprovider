@@ -21,15 +21,23 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewProvider;
 
 /**
- * This is a specialized Navigator that takes care of evaluating {@link ViewDescription} 
+ * <p>
+ * This is a specialized ViewProvider that takes care of evaluating {@link ViewDescription} 
  * especially {@link ViewDescription#requiredPermissions()}. Those expressions are evaluated
  * within the current Spring Security Context. If they evaluate to false, the view in concern
  * is not even instantiated.
- * 
- * The navigator then uses the SpringViewProvider that finally instantiates all views.
- * 
- * This navigator doesn't and shouldn't support adding and removing views.
- * 
+ * </p>
+ * <p>
+ * This ViewProvider must be retrieved through a factory method as the application context
+ * will be transiently stored and thus cannot be autowired through constructor injection.
+ * </p>
+ * <p>
+ * This also requires a the spring-instrumentation agent. See pom.xml or read more about
+ * Configurable objects here
+ * <a href="http://info.michael-simons.eu/2013/03/12/vaadin-spring-using-configurable-in-vaadin-components/">
+ * Vaadin & Spring: Using @Configurable in Vaadin Components
+ * </a>
+ * </p>
  * @author Michael J. Simons, 2013-03-04
  */
 @Configurable
