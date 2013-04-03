@@ -49,10 +49,18 @@ I recommend using the following setup of the SpringSecurityFilterChain, a dispat
 
 Your login page can be a simple JSP page, a Spring JSTL view or whatever you like. It may not live under /app.
 
-Examples
---------
+Examples and usage
+------------------
 
 Have a look at SpringSecurityViewProviderTest for an usage example and setting up basic security. There is also a [blog post][3] about the original idea.
+
+In your UIs init method create a navigator and add the SpringSecurityViewProvider like this:
+
+```
+final ComponentContainerViewDisplay viewDisplay = new ComponentContainerViewDisplay(this.mainContent);
+this.navigator = new Navigator(UI.getCurrent(), viewDisplay);
+this.navigator.addProvider(SpringSecurityViewProvider.createViewProvider((Authentication) request.getUserPrincipal()));
+```
 
 License
 -------
