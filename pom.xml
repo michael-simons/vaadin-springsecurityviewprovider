@@ -17,6 +17,13 @@
 		</developer>		
 	</developers>
 	
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+	
 	<scm>		
 		<connection>scm:git:git@github.com:michael-simons/vaadin-springsecurityviewprovider.git</connection>
 	</scm>
