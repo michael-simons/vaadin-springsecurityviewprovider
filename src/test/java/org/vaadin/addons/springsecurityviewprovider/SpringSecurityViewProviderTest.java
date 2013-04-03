@@ -66,4 +66,10 @@ public class SpringSecurityViewProviderTest {
 		final View v2 = viewProvider.getView(UncacheableTestView.VIEW_NAME);		
 		Assert.assertNotEquals(v1, v2);
 	}
+	
+	@Test
+	public void shouldNotFailOnUnknownView() {
+		final ViewProvider viewProvider = SpringSecurityViewProvider.createViewProvider(anonymousAuthentication, true);
+		viewProvider.getView("someUnknownView");
+	}
 }

@@ -126,14 +126,16 @@ public class SpringSecurityViewProvider implements ViewProvider {
 
 		// Retrieve the implementing class
 		Class<? extends View> clazz = this.views.get(viewName);
-		// Try to find cached instance of caching is enabled and the view is cacheable
-		if(isCachingEnabled() && clazz.getAnnotation(ViewDescription.class).cacheable()) {
-			rv = this.cachedInstances.get(viewName);
-			// retrieve the new instance and cache it if it's not already cached.
-			if(rv == null)
-				this.cachedInstances.put(viewName, rv = applicationContext.getBean(clazz));
-		} else {
-			rv = applicationContext.getBean(clazz);
+		if(clazz != null) {
+			// Try to find cached instance of caching is enabled and the view is cacheable
+			if(isCachingEnabled() && clazz.getAnnotation(ViewDescription.class).cacheable()) {
+				rv = this.cachedInstances.get(viewName);
+				// retrieve the new instance and cache it if it's not already cached.
+				if(rv == null)
+					this.cachedInstances.put(viewName, rv = applicationContext.getBean(clazz));
+			} else {
+				rv = applicationContext.getBean(clazz);
+			}
 		}
 		return rv;
 	}		
