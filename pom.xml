@@ -19,7 +19,7 @@
 	</developers>
 	
 	<scm>		
-		<connection>scm:git:git://github.com/michael-simons/vaadin-springsecurityviewprovider.git</connection>
+		<connection>scm:git:git@github.com:michael-simons/vaadin-springsecurityviewprovider.git</connection>
 	</scm>
 	
 	<properties>
