@@ -28,6 +28,8 @@
 	
 		<versions.vaadin>7.0.3</versions.vaadin>
 		<versions.vaadin.plugin>${versions.vaadin}</versions.vaadin.plugin>	
+		
+		<versions.aspectj>1.7.2</versions.aspectj>
 	</properties>
 	
 	<build>
@@ -69,6 +71,18 @@
 						<phase>validate</phase>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<forkMode>once</forkMode>
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/springframework/spring-instrument/${versions.springframework}/spring-instrument-${versions.springframework}.jar"
+					</argLine>
+					<useSystemClassloader>true</useSystemClassloader>
+				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -150,6 +164,21 @@
 			</exclusions>			
 		</dependency>
 		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${versions.aspectj}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${versions.aspectj}</version>
+		</dependency>	
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${versions.springframework}</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
@@ -161,5 +190,11 @@
 			<version>${versions.springframework}</version>
 			<scope>test</scope>
 		</dependency>			
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-instrument</artifactId>
+			<version>${versions.springframework}</version>
+			<scope>test</scope>
+		</dependency>				
 	</dependencies>
 </project>
