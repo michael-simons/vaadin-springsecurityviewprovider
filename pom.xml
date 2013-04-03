@@ -3,6 +3,7 @@
 	<groupId>org.vaadin.addons.springsecurityviewprovider</groupId>
 	<artifactId>vaadin-springsecurityviewprovider</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
+	<name>Vaadin-SpringSecurityViewProvider</name>
 	
 	<prerequisites>
 		<maven>3.0.4</maven>
