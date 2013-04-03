@@ -17,11 +17,8 @@ import org.springframework.security.access.expression.method.MethodSecurityExpre
 import org.springframework.security.core.Authentication;
 import org.springframework.security.util.SimpleMethodInvocation;
 
-import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.navigator.ViewProvider;
-import com.vaadin.ui.UI;
 
 /**
  * This is a specialized Navigator that takes care of evaluating {@link ViewDescription} 
@@ -35,84 +32,34 @@ import com.vaadin.ui.UI;
  * 
  * @author Michael J. Simons, 2013-03-04
  */
-public class SpringSecurityNavigator extends Navigator {
-	private static final long serialVersionUID = -7896790310309542217L;
+@Configurable
+public class SpringSecurityViewProvider implements ViewProvider {
+	private static final long serialVersionUID = -8555986824827085073L;
+	/** Will be injected through AspectJ upon new and deserialization */
+	@Autowired
+	transient ApplicationContext applicationContext;
+	/** The viewname -> view class mapping */
+	final Map<String, Class<? extends View>> views = new HashMap<>();
+	/** Cached instances of views */
+	final Map<String, View> cachedInstances = new HashMap<>();
+	private Boolean enableCaching;
 
-	/**
-	 * View provider that pulls views from the application context and optionally caches them.
-	 */
-	@Configurable
-	private class SpringViewProvider implements ViewProvider {
-		private static final long serialVersionUID = -8555986824827085073L;
-		/** Will be injected through AspectJ upon new and deserialization */
-		@Autowired
-		transient ApplicationContext applicationContext;
-		/** The viewname -> view class mapping */
-		final Map<String, Class<? extends View>> views = new HashMap<>();
-		/** Cached instances of views */
-		final Map<String, View> cachedInstances = new HashMap<>();
-
-		@Override
-		public String getViewName(String viewAndParameters) {
-			String rv = null;
-			if(viewAndParameters != null) {
-				if(views.containsKey(viewAndParameters))
-					rv = viewAndParameters;
-				else {
-					for(String viewName : views.keySet()) {
-						if(viewAndParameters.startsWith(viewName + "/")) {
-							rv = viewName;
-							break;
-						}
-					}
-				}
-			}
-			return rv;
-		}
-
-		@Override
-		public View getView(String viewName) {			
-			View rv = null;
-			
-			// Retrieve the implementing class
-			Class<? extends View> clazz = this.views.get(viewName);
-			// Try to find cached instance of caching is enabled and the view is cacheable
-			if(isCachingEnabled() && clazz.getAnnotation(ViewDescription.class).cacheable()) {
-				rv = this.cachedInstances.get(viewName);
-				// retrieve the new instance and cache it if it's not already cached.
-				if(rv == null)
-					this.cachedInstances.put(viewName, rv = applicationContext.getBean(clazz));
-			} else {
-				rv = applicationContext.getBean(clazz);
-			}
-			return rv;
-		}		
-		
-		/**
-		 * Caching should be enabled only in "prod" environment
-		 * @return true if caching is enabled
-		 */
-		boolean isCachingEnabled() {
-			return Arrays.asList(this.applicationContext.getEnvironment().getActiveProfiles()).contains("prod");
-		}
+	public final static ViewProvider createViewProvider(final Authentication authentication) {
+		return createViewProvider(authentication, null);
 	}
-
-	@SuppressWarnings("unchecked")
-	public SpringSecurityNavigator(
-			final ApplicationContext applicationContext,
-			final Authentication authentication,
-			final UI ui, 
-			final ViewDisplay display
-	) {
-		super(ui, display);
-
-		try {
-			final SpringViewProvider springViewProvider = new SpringViewProvider();		
 	
+	@SuppressWarnings("unchecked")
+	public final static ViewProvider createViewProvider(final Authentication authentication, Boolean enableCaching) {
+		final SpringSecurityViewProvider springViewProvider = new SpringSecurityViewProvider();
+		springViewProvider.enableCaching = enableCaching;
+		
+		try {				
+			final ApplicationContext applicationContext = springViewProvider.applicationContext;
+			
 			// Retrieve the default SecurityExpressionHandler 
 			final MethodSecurityExpressionHandler securityExpressionHandler = applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
 			// The method that is protected in the end
-			final Method getViewMethod = SpringViewProvider.class.getMethod("getView", String.class);
+			final Method getViewMethod = SpringSecurityViewProvider.class.getMethod("getView", String.class);
 			// A parser to evaluate parse the permissions.
 			final SpelExpressionParser parser = new SpelExpressionParser();
 	
@@ -131,40 +78,63 @@ public class SpringSecurityNavigator extends Navigator {
 					else {
 						// this is actually borrowed from the code in org.springframework.security.access.prepost.PreAuthorize
 						final EvaluationContext evaluationContext = securityExpressionHandler.createEvaluationContext(authentication, new SimpleMethodInvocation(springViewProvider, getViewMethod, viewDescription.name()));
-						// only add the view to my provider if the permissions evaluate to true
+						// only add the view to my provider if the permissions evaluate to true						
 						if(ExpressionUtils.evaluateAsBoolean(parser.parseExpression(viewDescription.requiredPermissions()), evaluationContext))
 							springViewProvider.views.put(viewDescription.name(), (Class<? extends View>) beanClass);							
 					}
 				}        
-	        }			
-			super.addProvider(springViewProvider);
+	        }						
 		} catch (NoSuchMethodException | SecurityException e) {
 			// Won't happen
 		} 
+				
+		return springViewProvider;
+	}
+	
+	private SpringSecurityViewProvider() {		
+	}
+	
+	@Override
+	public String getViewName(String viewAndParameters) {
+		String rv = null;
+		if(viewAndParameters != null) {
+			if(views.containsKey(viewAndParameters))
+				rv = viewAndParameters;
+			else {
+				for(String viewName : views.keySet()) {
+					if(viewAndParameters.startsWith(viewName + "/")) {
+						rv = viewName;
+						break;
+					}
+				}
+			}
+		}
+		return rv;
 	}
 
 	@Override
-	public void addView(String viewName, View view) {
-		throw new UnsupportedOperationException();
-	}
+	public View getView(String viewName) {			
+		View rv = null;
 
-	@Override
-	public void addView(String viewName, Class<? extends View> viewClass) {
-		throw new UnsupportedOperationException();
-	}
+		// Retrieve the implementing class
+		Class<? extends View> clazz = this.views.get(viewName);
+		// Try to find cached instance of caching is enabled and the view is cacheable
+		if(isCachingEnabled() && clazz.getAnnotation(ViewDescription.class).cacheable()) {
+			rv = this.cachedInstances.get(viewName);
+			// retrieve the new instance and cache it if it's not already cached.
+			if(rv == null)
+				this.cachedInstances.put(viewName, rv = applicationContext.getBean(clazz));
+		} else {
+			rv = applicationContext.getBean(clazz);
+		}
+		return rv;
+	}		
 
-	@Override
-	public void addProvider(ViewProvider provider) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void removeView(String viewName) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void removeProvider(ViewProvider provider) {
-		throw new UnsupportedOperationException();
+	/**
+	 * Caching should be enabled only in "prod" environment
+	 * @return true if caching is enabled
+	 */
+	boolean isCachingEnabled() {
+		return (enableCaching != null && enableCaching) || Arrays.asList(this.applicationContext.getEnvironment().getActiveProfiles()).contains("prod");
 	}
 }
