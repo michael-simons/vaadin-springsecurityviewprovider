@@ -27,7 +27,6 @@
 package org.vaadin.addons.springsecurityviewprovider;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -170,7 +169,7 @@ public class SpringSecurityViewProvider implements ViewProvider {
 	 * Caching should be enabled only in "prod" environment
 	 * @return true if caching is enabled
 	 */
-	boolean isCachingEnabled() {
-		return (enableCaching != null && enableCaching) || Arrays.asList(this.applicationContext.getEnvironment().getActiveProfiles()).contains("prod");
+	boolean isCachingEnabled() {		
+		return (enableCaching != null && enableCaching) || this.applicationContext.getEnvironment().acceptsProfiles("prod");
 	}
 }
