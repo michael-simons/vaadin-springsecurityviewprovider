@@ -29,6 +29,8 @@ package org.vaadin.addons.springsecurityviewprovider;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,7 @@ import com.vaadin.navigator.ViewProvider;
  */
 @Configurable
 public class SpringSecurityViewProvider implements ViewProvider {
+	public final static Logger logger = Logger.getLogger(SpringSecurityViewProvider.class.getName());
 	private static final long serialVersionUID = -8555986824827085073L;
 	/** Will be injected through AspectJ upon new and deserialization */
 	@Autowired
@@ -170,6 +173,8 @@ public class SpringSecurityViewProvider implements ViewProvider {
 	 * @return true if caching is enabled
 	 */
 	boolean isCachingEnabled() {		
-		return (enableCaching != null && enableCaching) || this.applicationContext.getEnvironment().acceptsProfiles("prod");
+		final boolean forceViewCaching = enableCaching != null && enableCaching;
+		logger.log(Level.FINE, forceViewCaching ? "Forcing view caching..." : "Letting profile decide about view caching...");
+		return forceViewCaching || this.applicationContext.getEnvironment().acceptsProfiles("prod");
 	}
 }
