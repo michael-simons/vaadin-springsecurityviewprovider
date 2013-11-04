@@ -130,6 +130,15 @@ public class SpringSecurityViewProvider implements ViewProvider {
 	private SpringSecurityViewProvider() {		
 	}
 	
+	/**
+	 * Returns true if this provider supports the given view
+	 * @param clazz
+	 * @return
+	 */
+	public boolean hasView(final Class<? extends View> clazz) {
+		return this.views.containsValue(clazz);
+	}
+	
 	@Override
 	public String getViewName(String viewAndParameters) {
 		String rv = null;
