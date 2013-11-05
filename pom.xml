@@ -40,7 +40,7 @@
 		<versions.vaadin>7.1.7</versions.vaadin>
 		<versions.vaadin.plugin>${versions.vaadin}</versions.vaadin.plugin>	
 		
-		<versions.aspectj>1.7.3</versions.aspectj>
+		<versions.aspectj>1.7.4</versions.aspectj>
 	</properties>
 	
 	<build>
