@@ -194,6 +194,45 @@
 				</exclusion>								
 			</exclusions>			
 		</dependency>
+			<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${versions.springframework.security}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-jdbc</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-tx</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-expression</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -236,7 +275,21 @@
 			<artifactId>spring-instrument</artifactId>
 			<version>${versions.springframework}</version>
 			<scope>test</scope>
-		</dependency>				
+		</dependency>			
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-push</artifactId>
+			<version>${versions.vaadin}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- JEE APIs (Must be last after all implementing libraries are added) -->
+		<dependency>
+		    <groupId>javax</groupId>
+		    <artifactId>javaee-web-api</artifactId>
+		    <version>6.0</version>
+		    <scope>provided</scope>
+		</dependency>		
 	</dependencies>
 	<url>http://info.michael-simons.eu/2013/03/30/vaadin-spring-integrating-vaadin-with-spring-security/</url>
 	<description>Provides a custom ViewProvider which evaluates @ViewDescription's and instanciates Views accordingly if the current User, authenticated through Spring Security, has the necessary permissions to use them.</description>
