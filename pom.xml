@@ -34,10 +34,10 @@
 	
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>	
 		
-		<versions.springframework>3.2.4.RELEASE</versions.springframework>
+		<versions.springframework>3.2.5.RELEASE</versions.springframework>
 		<versions.springframework.security>3.1.4.RELEASE</versions.springframework.security>
 	
-		<versions.vaadin>7.1.7</versions.vaadin>
+		<versions.vaadin>7.1.8</versions.vaadin>
 		<versions.vaadin.plugin>${versions.vaadin}</versions.vaadin.plugin>	
 		
 		<versions.aspectj>1.7.4</versions.aspectj>
