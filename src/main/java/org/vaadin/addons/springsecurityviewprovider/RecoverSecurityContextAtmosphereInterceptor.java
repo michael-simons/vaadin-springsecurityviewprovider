@@ -20,7 +20,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
  * @author Adrien Colson, Michael J. Simons
  */
 public class RecoverSecurityContextAtmosphereInterceptor implements AtmosphereInterceptor {
-	private Logger logger = Logger.getLogger(RecoverSecurityContextAtmosphereInterceptor.class.getName());
+	private static final Logger logger = Logger.getLogger(RecoverSecurityContextAtmosphereInterceptor.class.getName());
 
 	@Override
 	public void configure(AtmosphereConfig atmosphereConfig) {

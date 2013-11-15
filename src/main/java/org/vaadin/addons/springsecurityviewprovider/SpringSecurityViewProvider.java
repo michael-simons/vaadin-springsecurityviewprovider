@@ -69,7 +69,7 @@ import com.vaadin.navigator.ViewProvider;
  */
 @Configurable
 public class SpringSecurityViewProvider implements ViewProvider {
-	private final Logger logger = Logger.getLogger(SpringSecurityViewProvider.class.getName());
+	private static final Logger logger = Logger.getLogger(SpringSecurityViewProvider.class.getName());
 	private static final long serialVersionUID = -8555986824827085073L;
 	/** Will be injected through AspectJ upon new and deserialization */
 	@Autowired
