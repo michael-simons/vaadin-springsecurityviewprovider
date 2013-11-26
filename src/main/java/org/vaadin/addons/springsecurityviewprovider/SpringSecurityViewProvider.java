@@ -146,12 +146,14 @@ public class SpringSecurityViewProvider implements ViewProvider {
 			if(views.containsKey(viewAndParameters))
 				rv = viewAndParameters;
 			else {
+				// Find the best (longest) match
+				String bestMatch = null;
 				for(String viewName : views.keySet()) {
-					if(viewAndParameters.startsWith(viewName + "/")) {
-						rv = viewName;
-						break;
+					if(viewAndParameters.startsWith(viewName + "/") && (bestMatch == null || bestMatch.length() < viewAndParameters.length())) {
+						bestMatch = viewName;						
 					}
 				}
+				rv = bestMatch;
 			}
 		}
 		return rv;
