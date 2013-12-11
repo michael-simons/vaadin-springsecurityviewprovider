@@ -149,7 +149,7 @@ public class SpringSecurityViewProvider implements ViewProvider {
 				// Find the best (longest) match
 				String bestMatch = null;
 				for(String viewName : views.keySet()) {
-					if(viewAndParameters.startsWith(viewName + "/") && (bestMatch == null || bestMatch.length() < viewAndParameters.length())) {
+					if(viewAndParameters.startsWith(viewName + "/") && (bestMatch == null || bestMatch.length() < (viewName.length() + 1))) {
 						bestMatch = viewName;						
 					}
 				}
