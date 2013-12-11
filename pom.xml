@@ -281,6 +281,21 @@
 			<artifactId>vaadin-push</artifactId>
 			<version>${versions.vaadin}</version>
 			<scope>compile</scope>
+			<!-- This is a workaround for some strange dependencies https://twitter.com/rotnroll666/status/410729056863543296  -->
+			<exclusions>
+				<exclusion>					
+					<groupId>com.vaadin.external.atmosphere</groupId>
+					<artifactId>atmosphere-compat-jbossweb</artifactId>
+				</exclusion>
+				<exclusion>					
+					<groupId>com.vaadin.external.atmosphere</groupId>
+					<artifactId>atmosphere-compat-tomcat</artifactId>
+				</exclusion>	
+				<exclusion>					
+					<groupId>com.vaadin.external.atmosphere</groupId>
+					<artifactId>atmosphere-compat-tomcat7</artifactId>
+				</exclusion>					
+			</exclusions>
 		</dependency>
 		
 		<!-- JEE APIs (Must be last after all implementing libraries are added) -->
