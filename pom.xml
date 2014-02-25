@@ -310,9 +310,9 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-push</artifactId>
 			<version>${versions.vaadin}</version>
-			<scope>compile</scope>			
+			<scope>compile</scope>
+			<!-- This is a workaround for some strange dependencies https://twitter.com/rotnroll666/status/410729056863543296  -->
 			<exclusions>
-				<!-- This is a workaround for some strange dependencies https://twitter.com/rotnroll666/status/410729056863543296  -->
 				<exclusion>					
 					<groupId>com.vaadin.external.atmosphere</groupId>
 					<artifactId>atmosphere-compat-jbossweb</artifactId>
@@ -324,12 +324,7 @@
 				<exclusion>					
 					<groupId>com.vaadin.external.atmosphere</groupId>
 					<artifactId>atmosphere-compat-tomcat7</artifactId>
-				</exclusion>
-				<!-- Clash with Spring dependencies -->				
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>	
+				</exclusion>					
 			</exclusions>
 		</dependency>
 		
