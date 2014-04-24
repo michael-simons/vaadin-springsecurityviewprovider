@@ -38,7 +38,7 @@
 		<versions.springframework>3.2.8.RELEASE</versions.springframework>
 		<versions.springframework.security>3.1.6.RELEASE</versions.springframework.security>
 	
-		<versions.vaadin>7.1.11</versions.vaadin>
+		<versions.vaadin>7.1.14</versions.vaadin>
 		<versions.vaadin.plugin>${versions.vaadin}</versions.vaadin.plugin>	
 		
 		<versions.aspectj>1.7.4</versions.aspectj>
