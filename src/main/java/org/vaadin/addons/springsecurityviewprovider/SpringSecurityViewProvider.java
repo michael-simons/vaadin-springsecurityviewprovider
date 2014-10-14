@@ -62,7 +62,7 @@ import com.vaadin.navigator.ViewProvider;
  * This also requires a the spring-instrumentation agent. See pom.xml or read more about
  * Configurable objects here
  * <a href="http://info.michael-simons.eu/2013/03/12/vaadin-spring-using-configurable-in-vaadin-components/">
- * Vaadin & Spring: Using @Configurable in Vaadin Components
+ * Vaadin &amp; Spring: Using @Configurable in Vaadin Components
  * </a>
  * </p>
  * @author Michael J. Simons, 2013-03-04
@@ -74,7 +74,7 @@ public class SpringSecurityViewProvider implements ViewProvider {
 	/** Will be injected through AspectJ upon new and deserialization */
 	@Autowired
 	transient ApplicationContext applicationContext;
-	/** The viewname -> view class mapping */
+	/** The viewname -&gt; view class mapping */
 	final Map<String, Class<? extends View>> views = new HashMap<>();
 	/** Cached instances of views */
 	final Map<String, View> cachedInstances = new HashMap<>();
