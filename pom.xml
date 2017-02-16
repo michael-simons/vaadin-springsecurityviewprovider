@@ -29,6 +29,8 @@
 	<scm>
 		<connection>scm:git:git@github.com:michael-simons/vaadin-springsecurityviewprovider.git</connection>
 		<developerConnection>scm:git:git@github.com:michael-simons/vaadin-springsecurityviewprovider.git</developerConnection>
+		<url>https://github.com/michael-simons/vaadin-springsecurityviewprovider.git</url>
+		<tag>HEAD</tag>
 	</scm>
 
 	<properties>
