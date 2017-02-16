@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.enerko</groupId>
 	<artifactId>vaadin-springsecurityviewprovider</artifactId>
-	<version>0.2.1</version>
+	<version>0.2.2-SNAPSHOT</version>
 	<name>Vaadin-SpringSecurityViewProvider</name>
 
 	<prerequisites>
@@ -29,7 +29,7 @@
 		<connection>scm:git:git@github.com:michael-simons/vaadin-springsecurityviewprovider.git</connection>
 		<developerConnection>scm:git:git@github.com:michael-simons/vaadin-springsecurityviewprovider.git</developerConnection>
 		<url>https://github.com/michael-simons/vaadin-springsecurityviewprovider.git</url>
-		<tag>0.2.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<properties>
