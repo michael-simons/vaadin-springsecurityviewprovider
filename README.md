@@ -1,7 +1,7 @@
 Vaadin-SpringSecurityViewProvider
 =================================
 
-[![Build Status](https://travis-ci.org/michael-simons/vaadin-springsecurityviewprovider.svg?branch=master)](https://travis-ci.org/michael-simons/vaadin-springsecurityviewprovider) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/eu.michael-simons/vaadin-springsecurityviewprovider/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.vaadin.addons.springsecurityviewprovider/vaadin-springsecurityviewprovider)
+[![Build Status](https://travis-ci.org/michael-simons/vaadin-springsecurityviewprovider.svg?branch=master)](https://travis-ci.org/michael-simons/vaadin-springsecurityviewprovider) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/eu.michael-simons/vaadin-springsecurityviewprovider/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.enerko/vaadin-springsecurityviewprovider)
 
 This add-on has the following goals:
 
@@ -69,7 +69,7 @@ License
 
   **Apache License, Version 2.0**
 
-  Copyright 2013 ENERKO Informatik GmbH
+  Copyright 2013-2017 ENERKO Informatik GmbH
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
