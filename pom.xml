@@ -6,7 +6,7 @@
 	<name>Vaadin-SpringSecurityViewProvider</name>
 	
 	<prerequisites>
-		<maven>3.0.4</maven>
+		<maven>3.3.3</maven>
  	</prerequisites>
  	
 	<inceptionYear>2013</inceptionYear>
