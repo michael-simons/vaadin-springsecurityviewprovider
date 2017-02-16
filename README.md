@@ -1,6 +1,8 @@
 Vaadin-SpringSecurityViewProvider
 =================================
 
+[![Build Status](https://travis-ci.org/michael-simons/vaadin-springsecurityviewprovider.svg?branch=master)](https://travis-ci.org/michael-simons/vaadin-springsecurityviewprovider) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/eu.michael-simons/vaadin-springsecurityviewprovider/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.vaadin.addons.springsecurityviewprovider/vaadin-springsecurityviewprovider)
+
 This add-on has the following goals:
 
 * Integrate Spring Security into a Vaadin application
